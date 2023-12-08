@@ -1,0 +1,92 @@
+.layout_container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 40rem 1fr;
+  grid-template-rows: 9rem 1fr;
+  justify-content: center;
+
+  background-color: #eee;
+  max-width: 1200px;
+  min-height: 700px;
+  border-radius: 9px;
+  overflow: hidden;
+  margin: 6rem 0;
+}
+.layer_header {
+  display: grid;
+  grid-column: 1/-1;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 !important;
+}
+.spiner {
+  margin: 5rem auto;
+  text-align: center;
+}
+
+.spiner svg {
+  width: 4.4rem;
+  height: 4.4rem;
+  color: #f78656;
+  animation: rotate 2s infinite linear;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.layer_sidebar {
+  box-sizing: border-box;
+  grid-row: 2 / -1;
+  background-color: #fff;
+  padding: 0;
+  position: relative;
+}
+.layer_view {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  /* width: 30rem; */
+  position: relative;
+}
+.initial_mssg {
+  width: 30rem;
+  margin-top: 5rem;
+  color: #666;
+}
+.bookmarkView {
+  background-color: #fff;
+  max-width: 32rem;
+  padding: 4.8rem 3.2rem;
+  line-height: 1.5;
+  display: none;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.bookmarkView_text {
+  display: flex;
+  gap: 1.8rem;
+}
+.bookmarkView ion-icon {
+  width: 4.8rem;
+  height: 4.8rem;
+}
+.copyright {
+  font-size: 1.15rem;
+  color: #888;
+  margin: 2rem 1.3rem;
+  position: absolute;
+  bottom: 0;
+}
+.layer_header {
+  height: 0;
+}

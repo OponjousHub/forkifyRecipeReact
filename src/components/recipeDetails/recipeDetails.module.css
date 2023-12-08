@@ -1,0 +1,166 @@
+.main_error {
+  text-align: center;
+}
+.recipeDetailContainer {
+  width: 100%;
+  position: relative;
+}
+.bookmark {
+  width: 37rem;
+  color: #666;
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  z-index: 1;
+  /* box-shadow: rgba(60, 59, 59, 1.9) 2.95px 2.95px 3.6px; */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 1.23) 0px 3px 6px;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.bookmark_inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  padding: 2.5rem;
+}
+.bookmark_inner p {
+  line-height: 1.7;
+  margin-top: 2rem;
+}
+.bookmark_inner span {
+  color: #f78656;
+}
+.fig {
+  height: 33rem;
+  /* width: 80rem; */
+  position: relative;
+  transform-origin: top;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.images {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 20%) skewY(-6deg);
+  color: #fff;
+  font-weight: 700;
+  font-size: 3.25rem;
+  text-transform: uppercase;
+  width: 50%;
+  line-height: 1.95;
+  text-align: center;
+}
+.title span {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 1.3rem 2rem;
+  background-image: linear-gradient(to right bottom, #f0bb51, #f78656);
+}
+.servings {
+  padding: 3rem;
+  width: 100%;
+  background-color: #eee;
+  color: #666;
+
+  display: flex;
+  justify-content: space-around;
+}
+.ingredient {
+  height: 27rem;
+  width: 100%;
+  background-color: #f6f4f7;
+  padding: 20px 0;
+}
+.how_to_cook {
+  /* height: 23rem; */
+  width: 100%;
+  background-color: #eee;
+  color: #666;
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 6rem;
+}
+.how_to_cook_inner {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.per_person {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.person_serv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.adjust_servings {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+.add_bookmark {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.my_recipe {
+  width: 4rem;
+  height: 4rem;
+  padding: 5px 8px;
+  border-radius: 50%;
+  color: #f78;
+  background-color: #e2dddd;
+}
+.my_bookmark {
+  width: 4rem;
+  height: 4rem;
+  padding: 5px 7px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  background-image: linear-gradient(to right, #f0bb51, #f78656);
+}
+
+.how_to_cook h2 {
+  color: #da7c54;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+.how_to_cook p {
+  margin: 0;
+  padding: 0;
+  margin: 0 6rem;
+}
+.btn {
+  width: 20rem;
+  border: none;
+  padding: 1.6rem 2.4rem;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  background-image: linear-gradient(to right, #f0bb51, #f78656);
+}

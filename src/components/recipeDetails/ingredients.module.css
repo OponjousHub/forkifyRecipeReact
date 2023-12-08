@@ -1,0 +1,25 @@
+.ing_list {
+  display: flex;
+}
+.ingredient_title {
+  color: #f78656;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+.ing_list li {
+  list-style-type: none;
+  font-size: 1.4rem;
+  color: #666;
+
+  display: flex;
+  gap: 1rem;
+}
+.ing_side_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.list_box {
+  margin: 0 auto;
+}

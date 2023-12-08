@@ -1,0 +1,90 @@
+.result_container {
+  position: relative;
+  margin-bottom: 12rem;
+}
+.bookmark_container {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.bookmarktext_box .recipe_title {
+  font-size: 1.4rem;
+}
+.bookmarktext_box .recipe_owner {
+  font-size: 1.2rem;
+}
+.result_container ul {
+  padding-inline-start: 0;
+}
+.result_list {
+  list-style-type: none;
+  padding: 9px 2.4rem;
+  cursor: pointer;
+}
+.result_list:hover {
+  background-color: #eee;
+}
+.recipe_list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+  gap: 2.3rem;
+}
+
+.recipe_list img {
+  background-color: antiquewhite;
+}
+.list a {
+  text-decoration: none;
+}
+.list {
+  background-color: #fff;
+}
+.result_list :hover,
+.result_list :active {
+  background-color: #eee;
+}
+.result_text_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.recipe_list_image img {
+  width: 5.7rem;
+  height: 5.7rem;
+  border-radius: 50%;
+}
+.recipe_title,
+.recipe_owner {
+  margin: 0;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+.recipe_title {
+  font-size: 1.6rem;
+  color: #f78656;
+  letter-spacing: 1.1px;
+  width: 100%;
+
+  text-overflow: ellipsis;
+  max-width: 25rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.recipe_owner {
+  font-size: 1.2rem;
+  /* margin-top: 7px; */
+  color: #777;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.recipe_owner p {
+  margin: 0 !important;
+}
+.recipe_owner ion-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}

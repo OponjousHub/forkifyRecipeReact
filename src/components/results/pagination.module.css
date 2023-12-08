@@ -1,0 +1,52 @@
+.pagination_box {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  position: relative;
+}
+
+.btn_inline_right {
+  padding: 7px 1.3rem;
+  background-color: #eee;
+  position: absolute;
+  right: 3rem;
+  bottom: 9rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #f78656;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.btn_inline_left {
+  padding: 7px 1.3rem;
+  background-color: #eee;
+  position: absolute;
+  left: 3rem;
+  bottom: 9rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #f78656;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.btn_inline_left ion-icon,
+.btn_inline_right ion-icon {
+  padding: 0;
+  margin: 0;
+  color: #f78656;
+  width: 1.6rem;
+  height: 1.6rem;
+}
