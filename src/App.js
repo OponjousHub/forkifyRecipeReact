@@ -1,32 +1,43 @@
-import { Fragment } from "react";
-import RecipeDatail from "./components/recipeDetails/recipeDetails";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./pages/layout";
-import AddRecipeForm from "./components/header/addRecipeForm";
+import { RecipeContextProvider } from "./store/recipeContext";
+import Header from "./components/header/header";
 import "./App.css";
-import ErrorPage from "./pages/error";
+import RecipeResult from "./components/results/recipeResult";
+import RecipeDatail from "./components/recipeDetails/recipeDetails";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        // path: "/searchresults",
-        // element: <Layout />,
-        children: [{ path: ":recipeId", element: <RecipeDatail /> }],
-      },
-    ],
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Layout />,
+//     errorElement: <ErrorPage />,
+//     children: [
+//       {
+//         // path: "/searchresults",
+//         // element: <Layout />,
+//         children: [{ path: ":recipeId", element: <RecipeDatail /> }],
+//       },
+//     ],
+//   },
+// ]);
 
 function App() {
   return (
-    <Fragment>
-      <RouterProvider router={router} />;
-      <AddRecipeForm />
-    </Fragment>
+    <RecipeContextProvider>
+      <div
+        style={{
+          backgroundColor: "#fef5f1",
+        }}
+      >
+        <Header />
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <RecipeResult />
+          <RecipeDatail />
+        </div>
+      </div>
+    </RecipeContextProvider>
   );
 }
 

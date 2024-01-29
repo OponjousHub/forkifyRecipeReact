@@ -1,28 +1,27 @@
-import { useState, useEffect } from "react";
 import SearchRecipe from "./searchRecipe";
 import classes from "./header.module.css";
 import image from "../../img/logo.png";
 
 const Header = (props) => {
-  const [hoverBookmarks, setHoverBookmarks] = useState();
+  // const [hoverBookmarks, setHoverBookmarks] = useState();
 
-  const queryHeaderHandler = (query) => {
-    props.onFetchRecipe(query);
-  };
-  const showBookmarksHandler = () => {
-    setHoverBookmarks(true);
-  };
-  const hideBookmarksHandler = () => {
-    setHoverBookmarks(false);
-  };
-  useEffect(() => {
-    props.onShowBookmark(hoverBookmarks);
-    console.log(hoverBookmarks);
-  }, [showBookmarksHandler]);
+  // const queryHeaderHandler = (query) => {
+  //   props.onFetchRecipe(query);
+  // };
+  // const showBookmarksHandler = () => {
+  //   setHoverBookmarks(true);
+  // };
+  // const hideBookmarksHandler = () => {
+  //   setHoverBookmarks(false);
+  // };
+  // useEffect(() => {
+  //   props.onShowBookmark(hoverBookmarks);
+  //   console.log(hoverBookmarks);
+  // }, [showBookmarksHandler]);
   return (
     <header className={classes.header_container}>
       <img className={classes.logo} src={image} alt="forkify logo" />
-      <SearchRecipe onSearchQueryHeader={queryHeaderHandler} />
+      <SearchRecipe />
       <div className={classes.add}>
         <p className={classes.add_recipe}>
           <ion-icon className={classes.icon} name="create-outline"></ion-icon>
@@ -30,7 +29,7 @@ const Header = (props) => {
         </p>
         <p
           className={classes.show_bookmark}
-          onMouseOver={showBookmarksHandler}
+          // onMouseOver={showBookmarksHandler}
           // onMouseOut={hideBookmarksHandler}
         >
           <ion-icon

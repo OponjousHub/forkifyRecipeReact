@@ -10,6 +10,18 @@ const Bookmarks = (props) => {
     props.onShowRecipe();
   };
 
+  // <div className={classes.bookmark}>
+  //   <div className={classes.bookmark_inner}>
+  //     <span>
+  //       <Warning size={32} />
+  //     </span>
+  //     <p>
+  //       No bookmarks yet. Find a nice <br />
+  //       recipe and bookmark it :)
+  //     </p>
+  //   </div>
+  // </div>;
+
   return (
     <Fragment>
       <div

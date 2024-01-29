@@ -9,11 +9,11 @@ const Ingredients = (props) => {
     <Fragment>
       <h2 className={classes.ingredient_title}>RECIPE INGREDIENTS</h2>
       <div className={classes.list_box}>
-        {/* <ul className={classes.ing_list}>
+        <ul className={classes.ing_list}>
           {recipe.ingredients.map((ing) => {
             return (
               <div className={classes.ing_side_box}>
-                <li className={classes.ingredient}>
+                <li className={classes.ingredient} key={ing.id}>
                   <ion-icon name="checkmark-outline"></ion-icon>
                   <div>
                     <span>{ing.quantity}</span>
@@ -24,7 +24,7 @@ const Ingredients = (props) => {
               </div>
             );
           })}
-        </ul> */}
+        </ul>
       </div>
     </Fragment>
   );

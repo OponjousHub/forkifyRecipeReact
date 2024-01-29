@@ -1,31 +1,27 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { RESULT_PER_PAGE } from "../utility/config";
+import RecipeContext from "../../store/recipeContext";
 
 import classes from "./pagination.module.css";
 
 const Pagination = (props) => {
-  const [curPage, setCurPage] = useState(1);
-  const allRecipes = props.numRecipe.length;
+  const { onCurrPage, recipeResults, currPage } = useContext(RecipeContext);
+  const allRecipes = recipeResults.length;
   const numPage = allRecipes / RESULT_PER_PAGE;
   const numPages = Math.ceil(numPage);
-  props.onCalcNumPages(curPage);
+  const curPage = currPage;
 
   const rightPaginationHandler = () => {
     const updatedCurPage = curPage + 1;
-    setCurPage(updatedCurPage);
-    props.onCalcNumPages(curPage);
+    onCurrPage(updatedCurPage);
   };
   const leftPaginationHandler = () => {
     const updatedCurPage = curPage - 1;
-    setCurPage(updatedCurPage);
-    props.onCalcNumPages(curPage);
+    onCurrPage(updatedCurPage);
   };
 
-  //Page 1 and there are other pages
   if (curPage === 1 && numPages > 1) {
     return (
-      // <>
-      //   <div className={classes.pagination_box}>
       <button
         onClick={rightPaginationHandler}
         className={classes.btn_inline_right}
@@ -33,8 +29,6 @@ const Pagination = (props) => {
         <span>{`Page ${curPage + 1}`}</span>
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </button>
-      //   </div>
-      // </>
     );
   }
 
@@ -42,7 +36,6 @@ const Pagination = (props) => {
   if (curPage < numPages) {
     return (
       <>
-        {/* <div className={classes.pagination_box}> */}
         <button
           onClick={leftPaginationHandler}
           className={classes.btn_inline_left}
@@ -59,7 +52,6 @@ const Pagination = (props) => {
 
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </button>
-        {/* </div> */}
       </>
     );
   }
@@ -68,7 +60,6 @@ const Pagination = (props) => {
   if (curPage === numPages && numPages > 1) {
     return (
       <>
-        {/* <div className={classes.pagination_box}> */}
         <button
           onClick={leftPaginationHandler}
           className={classes.btn_inline_left}

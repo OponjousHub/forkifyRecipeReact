@@ -1,7 +1,9 @@
 .result_container {
   position: relative;
-  margin-bottom: 12rem;
+  width: 35rem;
+  background-color: #fff;
 }
+
 .bookmark_container {
   margin-bottom: 0;
   font-weight: 500;
@@ -39,6 +41,11 @@
 }
 .list {
   background-color: #fff;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+
+  display: flex;
+  flex-direction: column;
 }
 .result_list :hover,
 .result_list :active {
@@ -87,4 +94,14 @@
 .recipe_owner ion-icon {
   width: 1.4rem;
   height: 1.4rem;
+}
+.copyright {
+  padding: 2.4rem 2rem;
+  margin-bottom: 5rem;
+}
+.copyright p {
+  font-size: 11px;
+  color: #777;
+  position: absolute;
+  bottom: 2rem;
 }
