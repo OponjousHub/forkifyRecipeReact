@@ -4,26 +4,19 @@ import { Smiley, User, BookmarkSimple } from "@phosphor-icons/react";
 import classes from "./recipeDetails.module.css";
 import Spiner from "../utility/spiner";
 import Ingredients from "./ingredients";
+import { fetchRecipeUrl } from "../utility/http";
+import Error from "../utility/error";
 
 const RecipeDatail = () => {
   const [loadedRecipe, setLoadedRecipe] = useState("");
-  const { selectedRecipe } = useContext(RecipeContext);
+  const [error, setError] = useState("");
+  const { selectedRecipe, onLoading, isLoading } = useContext(RecipeContext);
   const id = selectedRecipe.selectedRecipeId;
   useEffect(() => {
     const loadRecipe = async (id) => {
       try {
-        // setIsBookmarked(bookmarked.some((hasBooked) => hasBooked.id === id));
-
-        // setIsLoading(true);
-        const response = await fetch(
-          `https://forkify-api.herokuapp.com/api/v2/recipes/${id}/?key=<a279b720-e157-4a3a-9725-ebe1bb21da1f>`
-        );
-        if (!response.ok)
-          throw new Error(
-            `Could not fetch this recipe! please try again. Status: ${response.status}`
-          );
-
-        const recipeData = await response.json();
+        onLoading(true);
+        const recipeData = await fetchRecipeUrl(id);
         const { recipe } = recipeData.data;
         const rec = {
           id: recipe.id,
@@ -36,17 +29,35 @@ const RecipeDatail = () => {
           cookingTime: recipe.cooking_time,
         };
         setLoadedRecipe(rec);
-        // setIsLoading(false);
+        onLoading(false);
         console.log(rec);
         return rec;
       } catch (err) {
-        alert(err);
+        setError(err);
+        // alert(err);
       }
     };
     loadRecipe(id);
   }, [id]);
 
-  // console.log(loadedRecipe.title);
+  const handleIncreaseServing = () => {
+    setLoadedRecipe((prevState) => {
+      const updatedServing = loadedRecipe.servings + 1;
+      return {
+        ...prevState,
+        servings: updatedServing,
+      };
+    });
+  };
+  const handleDecreaseServing = () => {
+    setLoadedRecipe((prevState) => {
+      const updatedServing = loadedRecipe.servings - 1;
+      return {
+        ...prevState,
+        servings: updatedServing > 0 ? updatedServing : 1,
+      };
+    });
+  };
 
   let content = "";
 
@@ -63,7 +74,13 @@ const RecipeDatail = () => {
         </div>
       </div>
     );
-  } else {
+  } else if (isLoading) {
+    return (content = <Spiner />);
+  }
+  // else if (error) {
+  //   return (content = <Error />);
+  // }
+  else {
     content = (
       <div>
         <figure className={classes.fig}>
@@ -88,8 +105,14 @@ const RecipeDatail = () => {
               <p>{loadedRecipe.servings} servings</p>
             </div>
             <div className={classes.adjust_servings}>
-              <ion-icon name="remove-circle-outline"></ion-icon>
-              <ion-icon name="add-circle-outline"></ion-icon>
+              <ion-icon
+                onClick={handleDecreaseServing}
+                name="remove-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                onClick={handleIncreaseServing}
+                name="add-circle-outline"
+              ></ion-icon>
             </div>
           </div>
           <div

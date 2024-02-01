@@ -15,7 +15,7 @@ const Ingredients = (props) => {
               <div className={classes.ing_side_box}>
                 <li className={classes.ingredient} key={ing.id}>
                   <ion-icon name="checkmark-outline"></ion-icon>
-                  <div>
+                  <div className={classes.ing_inner}>
                     <span>{ing.quantity}</span>
                     <span>{ing.unit}</span>
                   </div>

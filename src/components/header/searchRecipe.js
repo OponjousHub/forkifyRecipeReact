@@ -1,18 +1,19 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import RecipeContext from "../../store/recipeContext";
 import classes from "./header.module.css";
 
 // API key  a279b720-e157-4a3a-9725-ebe1bb21da1f
 
-const SearchRecipe = (props) => {
+const SearchRecipe = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const searchinputRef = useRef();
 
   const recipeCTXval = useContext(RecipeContext);
-  // console.log(recipeCTXval);
 
   const searchRecipeHandler = (event) => {
     event.preventDefault();
     const query = searchinputRef.current.value;
+    // const validQuery = query && query.value;
     // try {
     //   event.preventDefault();
     //   const query = searchinputRef.current.value;
@@ -20,11 +21,11 @@ const SearchRecipe = (props) => {
     // } catch (error) {
     //   throw new Error(`unable to fetch`);
     // }
+    event.target.reset();
 
     const fetchRecipes = async () => {
       try {
-        // setIsLoading(true);
-
+        setIsLoading(true);
         const response = await fetch(
           // "https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886?key=a279b720-e157-4a3a-9725-ebe1bb21da1f "
           `https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=a279b720-e157-4a3a-9725-ebe1bb21da1f`
@@ -44,9 +45,10 @@ const SearchRecipe = (props) => {
         recipeCTXval.recipe(transformedRecipe);
         // setFetchedRecipe(transformedRecipe);
 
-        // setIsLoading(false);
+        setIsLoading(false);
+        recipeCTXval.onLoading(isLoading);
       } catch (err) {
-        alert(err);
+        //  alert(err);
       }
     };
     fetchRecipes(query);
@@ -60,6 +62,7 @@ const SearchRecipe = (props) => {
           type="text"
           placeholder="Search over 1,000,000 recipes..."
           ref={searchinputRef}
+          required
         />
         <button className={classes.btn}>
           <ion-icon

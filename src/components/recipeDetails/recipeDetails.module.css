@@ -77,7 +77,7 @@
   justify-content: space-around;
 }
 .ingredient {
-  height: 27rem;
+  min-height: 27rem;
   width: 100%;
   background-color: #f6f4f7;
   padding: 20px 0;
@@ -118,6 +118,8 @@
   display: flex;
   align-items: center;
   gap: 7px;
+}
+.adjust_servings ion-icon {
   cursor: pointer;
 }
 .add_bookmark {

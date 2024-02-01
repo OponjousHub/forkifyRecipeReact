@@ -1,5 +1,13 @@
+.list_box {
+  padding: 0 3rem;
+}
 .ing_list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+
+  padding-left: 0;
 }
 .ingredient_title {
   color: #f78656;
@@ -7,7 +15,7 @@
   font-size: 1.8rem;
   margin-top: 2rem;
 }
-.ing_list li {
+.ingredient {
   list-style-type: none;
   font-size: 1.4rem;
   color: #666;
@@ -15,9 +23,16 @@
   display: flex;
   gap: 1rem;
 }
-.ing_side_box {
+/* .ing_side_box {
+ 
+} */
+.ingredients {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  grid-gap: 10px;
 }
-.list_box {
+/* .list_box {
   margin: 0 auto;
-}
+} */

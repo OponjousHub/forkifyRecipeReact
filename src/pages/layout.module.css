@@ -20,26 +20,6 @@
   box-sizing: border-box;
   padding: 0 !important;
 }
-.spiner {
-  margin: 5rem auto;
-  text-align: center;
-}
-
-.spiner svg {
-  width: 4.4rem;
-  height: 4.4rem;
-  color: #f78656;
-  animation: rotate 2s infinite linear;
-}
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 .layer_sidebar {
   box-sizing: border-box;

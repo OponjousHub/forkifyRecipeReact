@@ -1,5 +1,5 @@
 import { Spinner } from "@phosphor-icons/react";
-import classes from "../../pages/layout.module.css";
+import classes from "../results/recipeResult.module.css";
 
 const Spiner = () => {
   return (

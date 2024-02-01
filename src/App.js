@@ -25,6 +25,8 @@ function App() {
       <div
         style={{
           backgroundColor: "#fef5f1",
+          borderRadius: "24px",
+          overflow: "hidden",
         }}
       >
         <Header />

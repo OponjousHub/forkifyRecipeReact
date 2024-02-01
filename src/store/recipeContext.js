@@ -4,6 +4,7 @@ const RecipeContext = createContext({
   recipe: () => {},
   onCurrPage: () => {},
   onSelectRecipe: () => {},
+  onLoading: () => {},
   // currPage: currPage,
 });
 
@@ -12,6 +13,7 @@ export default RecipeContext;
 export const RecipeContextProvider = ({ children }) => {
   const [recipeResults, setRecipeResults] = useState([]);
   const [currPage, setCurrPage] = useState(1);
+  const [isLoading, setIsLoading] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState({
     selectedState: false,
     selectedRecipeId: null,
@@ -34,6 +36,10 @@ export const RecipeContextProvider = ({ children }) => {
     });
   };
 
+  const loading = (loadingState) => {
+    setIsLoading(loadingState);
+  };
+
   const recipeCTXval = {
     recipe: handleRecipeResults,
     recipeResults,
@@ -41,6 +47,8 @@ export const RecipeContextProvider = ({ children }) => {
     currPage,
     onSelectRecipe: handleSelectedRecipe,
     selectedRecipe,
+    onLoading: loading,
+    isLoading,
   };
 
   return (
