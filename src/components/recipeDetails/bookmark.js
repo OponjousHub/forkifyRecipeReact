@@ -1,27 +1,7 @@
 import { Fragment } from "react";
 import classes from "../results/recipeResult.module.css";
-import { NavLink } from "react-router-dom";
 
 const Bookmarks = (props) => {
-  const bookmarks = props.loadBookmark;
-  console.log(bookmarks);
-
-  const clickRecipeHandler = () => {
-    props.onShowRecipe();
-  };
-
-  // <div className={classes.bookmark}>
-  //   <div className={classes.bookmark_inner}>
-  //     <span>
-  //       <Warning size={32} />
-  //     </span>
-  //     <p>
-  //       No bookmarks yet. Find a nice <br />
-  //       recipe and bookmark it :)
-  //     </p>
-  //   </div>
-  // </div>;
-
   return (
     <Fragment>
       <div
@@ -29,34 +9,26 @@ const Bookmarks = (props) => {
       >
         <ul className={classes.list}>
           {bookmarks.map((recipe) => (
-            <li
-              key={recipe.id}
-              className={classes.result_list}
-              onClick={clickRecipeHandler}
-            >
-              <NavLink
-                to={`${recipe.id}`}
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
+            // <li
+            //   key={recipe.id}
+            //   className={classes.result_list}
+            //   onClick={clickRecipeHandler}
+            // >
+            <div className={classes.recipe_list}>
+              <div className={classes.recipe_list_image}>
+                <img src={recipe.image} alt={recipe.image} />
+              </div>
+              <div
+                className={`${classes.result_text_container} ${classes.bookmarktext_box}`}
               >
-                <div className={classes.recipe_list}>
-                  <div className={classes.recipe_list_image}>
-                    <img src={recipe.image} alt={recipe.image} />
-                  </div>
-                  <div
-                    className={`${classes.result_text_container} ${classes.bookmarktext_box}`}
-                  >
-                    <p className={classes.recipe_title}>{recipe.title}</p>
-                    <div className={classes.recipe_owner}>
-                      <p>{recipe.publisher}</p>
-                      <ion-icon name="person-outline"></ion-icon>
-                    </div>
-                  </div>
+                <p className={classes.recipe_title}>{recipe.title}</p>
+                <div className={classes.recipe_owner}>
+                  <p>{recipe.publisher}</p>
+                  <ion-icon name="person-outline"></ion-icon>
                 </div>
-              </NavLink>
-            </li>
+              </div>
+            </div>
+            // </li>
           ))}
         </ul>
       </div>

@@ -1,45 +1,30 @@
 import { RecipeContextProvider } from "./store/recipeContext";
+import { BookmarkContextProvider } from "./store/bookmarkContext";
 import Header from "./components/header/header";
 import "./App.css";
 import RecipeResult from "./components/results/recipeResult";
 import RecipeDatail from "./components/recipeDetails/recipeDetails";
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Layout />,
-//     errorElement: <ErrorPage />,
-//     children: [
-//       {
-//         // path: "/searchresults",
-//         // element: <Layout />,
-//         children: [{ path: ":recipeId", element: <RecipeDatail /> }],
-//       },
-//     ],
-//   },
-// ]);
+import { useState } from "react";
+import classes from "./app.module.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoading = (load) => {
+    setIsLoading(load);
+  };
   return (
-    <RecipeContextProvider>
-      <div
-        style={{
-          backgroundColor: "#fef5f1",
-          borderRadius: "24px",
-          overflow: "hidden",
-        }}
-      >
-        <Header />
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <RecipeResult />
-          <RecipeDatail />
+    <BookmarkContextProvider>
+      <RecipeContextProvider>
+        <div className={classes.app_container}>
+          <Header onLoad={handleLoading} />
+          <div className={classes.recipe_container}>
+            <RecipeResult onLoading={isLoading} />
+            <RecipeDatail />
+          </div>
         </div>
-      </div>
-    </RecipeContextProvider>
+      </RecipeContextProvider>
+    </BookmarkContextProvider>
   );
 }
 

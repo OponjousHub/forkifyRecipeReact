@@ -8,6 +8,7 @@
   margin-bottom: 0;
   font-weight: 500;
 }
+
 .bookmarktext_box .recipe_title {
   font-size: 1.4rem;
 }
@@ -35,6 +36,7 @@
 }
 .recipe_list {
   background-color: #fff;
+  font-weight: 200;
   /* padding: 0.5rem; */
 }
 .recipe_list :hover,

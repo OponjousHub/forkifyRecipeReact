@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import image from "../../img/food1.jpg";
-import image2 from "../../img/food2.jpg";
-import image3 from "../../img/food.jpg";
+// import image from "../../img/food1.jpg";
+// import image2 from "../../img/food2.jpg";
+// import image3 from "../../img/food.jpg";
 import classes from "./searchResult.module.css";
 
 const SearchResult = (props) => {

@@ -1,38 +1,41 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState, memo } from "react";
 import RecipeContext from "../../store/recipeContext";
+import ErrorModal from "../utility/errorModal";
 import classes from "./header.module.css";
 
 // API key  a279b720-e157-4a3a-9725-ebe1bb21da1f
 
-const SearchRecipe = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const SearchRecipe = memo(function SearchRecipe({ onLoading }) {
+  const [hasError, setHasError] = useState({
+    error: "",
+    errState: false,
+  });
   const searchinputRef = useRef();
+  const dialog = useRef();
 
   const recipeCTXval = useContext(RecipeContext);
 
   const searchRecipeHandler = (event) => {
     event.preventDefault();
     const query = searchinputRef.current.value;
-    // const validQuery = query && query.value;
-    // try {
-    //   event.preventDefault();
-    //   const query = searchinputRef.current.value;
-    //   props.onSearchQueryHeader(query);
-    // } catch (error) {
-    //   throw new Error(`unable to fetch`);
-    // }
-    event.target.reset();
 
+    event.target.reset();
     const fetchRecipes = async () => {
       try {
-        setIsLoading(true);
+        onLoading(true);
         const response = await fetch(
           // "https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886?key=a279b720-e157-4a3a-9725-ebe1bb21da1f "
           `https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=a279b720-e157-4a3a-9725-ebe1bb21da1f`
         );
         const data = await response.json();
-        if (!response.ok)
-          throw new Error(`${data.message} Status: ${data.status}`);
+        if (
+          // !response.ok ||
+          data.data.recipes.length === 0
+        )
+          throw new Error(
+            `Could not find any ${query} recipe! Please try another recipe.`
+          );
+        console.log(data.data);
         let { recipes } = data.data;
         const transformedRecipe = recipes.map((rec) => {
           return {
@@ -43,12 +46,15 @@ const SearchRecipe = () => {
           };
         });
         recipeCTXval.recipe(transformedRecipe);
-        // setFetchedRecipe(transformedRecipe);
-
-        setIsLoading(false);
-        recipeCTXval.onLoading(isLoading);
+        onLoading(false);
       } catch (err) {
-        //  alert(err);
+        // recipeCTXval.onShowError(err);
+        setHasError({
+          error: err.message,
+          errState: true,
+        });
+        onLoading(false);
+        dialog.current.showModal();
       }
     };
     fetchRecipes(query);
@@ -56,6 +62,10 @@ const SearchRecipe = () => {
 
   return (
     <>
+      <ErrorModal
+        ref={dialog}
+        eror={hasError.errState ? hasError.error : null}
+      />
       <form onSubmit={searchRecipeHandler} className={classes.search}>
         <input
           className={classes.input}
@@ -74,6 +84,6 @@ const SearchRecipe = () => {
       </form>
     </>
   );
-};
+});
 
 export default SearchRecipe;

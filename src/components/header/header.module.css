@@ -4,6 +4,8 @@
   align-items: center;
   justify-items: center;
   color: #666;
+
+  position: relative;
 }
 
 .logo {
@@ -102,6 +104,20 @@ button ion-icon {
   padding: 3rem 2px;
   margin: 0 !important;
 }
+.inner {
+  background-color: #fff;
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+
+  position: absolute;
+  right: 0;
+  top: 88px;
+}
+.bookmarks_ul {
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 .show_bookmark:hover {
   background-color: #e6e6e6;
   color: #f78656;

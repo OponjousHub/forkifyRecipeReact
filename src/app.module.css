@@ -1,0 +1,8 @@
+.app_container {
+  background-color: #fef5f1;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.recipe_container {
+  display: flex;
+}

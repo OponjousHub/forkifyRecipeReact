@@ -1,21 +1,45 @@
 import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import RecipeContext from "../../store/recipeContext";
+import BookmarkContext from "../../store/bookmarkContext";
 import { Smiley, User, BookmarkSimple } from "@phosphor-icons/react";
 import classes from "./recipeDetails.module.css";
 import Spiner from "../utility/spiner";
 import Ingredients from "./ingredients";
 import { fetchRecipeUrl } from "../utility/http";
-import Error from "../utility/error";
+// import Error from "../utility/error";
 
 const RecipeDatail = () => {
   const [loadedRecipe, setLoadedRecipe] = useState("");
-  const [error, setError] = useState("");
-  const { selectedRecipe, onLoading, isLoading } = useContext(RecipeContext);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState("");
+  const [bookmarkIcon, setBookmarkIcon] = useState(false);
+  const { selectedRecipe } = useContext(RecipeContext);
+  const { onGetSelectedRecipe, onBookrecipe, bookmarks, onRemoveBookmark } =
+    useContext(BookmarkContext);
   const id = selectedRecipe.selectedRecipeId;
+
+  const handleBookmarkClick = () => {
+    onBookrecipe();
+    setBookmarkIcon(true);
+  };
+  // const refreshBookmark = (bookState) => {
+  //   onBookrecipe();
+  // };
+  const handleRemoveBookmark = () => {
+    onRemoveBookmark();
+    console.log(selectedRecipe.id);
+    setBookmarkIcon(false);
+  };
+
   useEffect(() => {
     const loadRecipe = async (id) => {
       try {
-        onLoading(true);
+        setIsLoading(true);
+        bookmarks.find((book) => book.id === id)
+          ? setBookmarkIcon(true)
+          : setBookmarkIcon(false);
+
         const recipeData = await fetchRecipeUrl(id);
         const { recipe } = recipeData.data;
         const rec = {
@@ -29,11 +53,12 @@ const RecipeDatail = () => {
           cookingTime: recipe.cooking_time,
         };
         setLoadedRecipe(rec);
-        onLoading(false);
+        onGetSelectedRecipe(rec);
+        setIsLoading(false);
         console.log(rec);
         return rec;
       } catch (err) {
-        setError(err);
+        // setError(err);
         // alert(err);
       }
     };
@@ -58,6 +83,25 @@ const RecipeDatail = () => {
       };
     });
   };
+
+  // let boomarkIcon = "";
+  // const isBookmarked = bookmarks.find(
+  //   (booked) => booked.id === selectedRecipe.id
+  // );
+  // if (isBookmarked) {
+  //   boomarkIcon = (
+  //     <BookmarkSimple size={64} weight="fill" className={classes.my_bookmark} />
+  //   );
+  // } else {
+  //   boomarkIcon = (
+  //     <BookmarkSimple
+  //       size={64}
+  //       // weight="fill"
+  //       className={classes.my_bookmark}
+  //       onClick={handleBookmarkClick}
+  //     />
+  //   );
+  // }
 
   let content = "";
 
@@ -121,18 +165,22 @@ const RecipeDatail = () => {
           >
             {/* <UserIcon className={classes.my_recipe} /> */}
             <User size={32} />
-
-            <BookmarkSimple
-              size={64}
-              weight="fill"
-              className={classes.my_bookmark}
-            />
-
-            <BookmarkSimple
-              size={64}
-              // weight="fill"
-              className={classes.my_bookmark}
-            />
+            {/* {boomarkIcon} */}
+            {bookmarkIcon ? (
+              <BookmarkSimple
+                size={64}
+                weight="fill"
+                className={classes.my_bookmark}
+                onClick={handleRemoveBookmark}
+              />
+            ) : (
+              <BookmarkSimple
+                size={64}
+                // weight="fill"
+                className={classes.my_bookmark}
+                onClick={handleBookmarkClick}
+              />
+            )}
           </div>
         </div>
 
@@ -161,80 +209,5 @@ const RecipeDatail = () => {
 
   return content;
 };
-
-// import Bookmarks from "./bookmark";
-// import { Bookmark, BookmarkSimple, Warning } from "@phosphor-icons/react";
-// import { render } from "react-dom";
-
-// const RecipeDatail = (props) => {
-//   const [loadedRecipe, setLoadedRecipe] = useState({});
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [isBookmarked, setIsBookmarked] = useState(false);
-//   const [bookmarked, setBookmarked] = useState([]);
-//   const params = useParams();
-//   const id = params.recipeId;
-//   const showBookmark = props.onPassBookmarkState;
-//   console.log(showBookmark);
-
-//   const onToggleBookmarkHandler = () => {
-//     !isBookmarked ? setIsBookmarked(true) : setIsBookmarked(false);
-
-//     if (!isBookmarked) {
-//       setBookmarked((prevBook) => [...prevBook, loadedRecipe]);
-//     }
-//     console.log("clicked bookmarked");
-//     console.log(loadedRecipe);
-//     console.log(bookmarked);
-
-//     if (isBookmarked) {
-//       setBookmarked(
-//         bookmarked.filter((bookMk) => {
-//           return bookMk.id !== id;
-//         })
-//       );
-//     }
-//   };
-
-//   console.log(bookmarked);
-//   return (
-//     <Fragment>
-//       {isLoading ? (
-//         <Spiner />
-//       ) : (
-//         <div className={classes.recipeDetailContainer}>
-//           {
-//             showBookmark && bookmarked.length < 1 && (
-//               // <div className={classes.bookmark}>
-//               //   <div className={classes.bookmark_inner}>
-//               //     <span>
-//               //       <Warning size={32} />
-//               //     </span>
-//               //     <p>
-//               //       No bookmarks yet. Find a nice <br />
-//               //       recipe and bookmark it :)
-//               //     </p>
-//               //   </div>
-//               // </div>
-//             )
-//             // : (
-//             // )
-//           }
-//           {showBookmark && bookmarked.length > 0 && (
-//             <div className={classes.bookmark}>
-//               <Bookmarks
-//                 loadBookmark={bookmarked}
-//                 onPersistBookmk={showBookmark}
-//               />
-//             </div>
-//           )}
-
-//
-//           </div>
-//
-//         </div>
-//       )}
-//     </Fragment>
-//   );
-// };
 
 export default RecipeDatail;
