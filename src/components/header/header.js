@@ -1,4 +1,5 @@
 import SearchRecipe from "./searchRecipe";
+import { Warning } from "@phosphor-icons/react";
 import classes from "./header.module.css";
 import styles from "../results/recipeResult.module.css";
 
@@ -19,7 +20,57 @@ const Header = ({ onLoad }) => {
   const handleHideBookmark = () => {
     setShowBookmarks(false);
   };
-  console.log(bookmarks);
+  console.log(selectedRecipe.id);
+
+  let bookmarkContent;
+  if (showBookmarks && bookmarks.length > 0) {
+    bookmarkContent = (
+      <div className={classes.inner}>
+        <ul className={`${styles.ul_list} ${classes.bookmarks_ul}`}>
+          {bookmarks.map((recipe) => {
+            let cssClass = "";
+            if (recipe.id === selectedRecipe.selectedRecipeId) {
+              cssClass = styles.recipe_list_active;
+            } else {
+              cssClass = styles.recipe_list;
+            }
+
+            return (
+              <li
+                key={recipe.id}
+                className={cssClass}
+                onClick={() => onSelectRecipe(recipe)}
+              >
+                <div className={styles.recipe_detail_box}>
+                  <div className={styles.recipe_list_image}>
+                    <img src={recipe.image} alt="" />
+                  </div>
+                  <div className={styles.result_text_container}>
+                    <p className={styles.recipe_title}>{recipe.title}</p>
+                    <div className={styles.recipe_owner}>
+                      <p>{recipe.publisher}</p>
+                      <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  } else if (showBookmarks && bookmarks.length === 0) {
+    bookmarkContent = (
+      <div className={classes.inner}>
+        <div className={classes.warning_box}>
+          <Warning className={classes.warning} />
+          <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>
+        </div>
+      </div>
+    );
+  } else {
+    bookmarkContent = null;
+  }
 
   return (
     <header className={classes.header_container}>
@@ -41,41 +92,7 @@ const Header = ({ onLoad }) => {
           ></ion-icon>
           <span>BOOKMARK</span>
 
-          {showBookmarks && (
-            <div className={classes.inner}>
-              <ul className={`${styles.ul_list} ${classes.bookmarks_ul}`}>
-                {bookmarks.map((recipe) => {
-                  let cssClass = "";
-                  if (recipe.id === selectedRecipe.selectedRecipeId) {
-                    cssClass = styles.recipe_list_active;
-                  } else {
-                    cssClass = styles.recipe_list;
-                  }
-
-                  return (
-                    <li
-                      key={recipe.id}
-                      className={cssClass}
-                      onClick={() => onSelectRecipe(recipe)}
-                    >
-                      <div className={styles.recipe_detail_box}>
-                        <div className={styles.recipe_list_image}>
-                          <img src={recipe.image} alt="" />
-                        </div>
-                        <div className={styles.result_text_container}>
-                          <p className={styles.recipe_title}>{recipe.title}</p>
-                          <div className={styles.recipe_owner}>
-                            <p>{recipe.publisher}</p>
-                            <ion-icon name="person-outline"></ion-icon>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
+          {bookmarkContent}
         </p>
       </div>
     </header>

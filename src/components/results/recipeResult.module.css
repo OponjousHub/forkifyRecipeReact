@@ -1,6 +1,9 @@
+.detail_layout {
+  max-width: 500px;
+}
 .result_container {
   position: relative;
-  width: 370px;
+  width: 37rem;
   background-color: #fff;
 }
 

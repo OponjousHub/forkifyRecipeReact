@@ -105,6 +105,7 @@ button ion-icon {
   margin: 0 !important;
 }
 .inner {
+  width: 37rem;
   background-color: #fff;
   box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.6);
   z-index: 10;
@@ -127,4 +128,19 @@ ion-icon {
   color: #f78656;
   width: 2.8rem;
   height: 2.8rem;
+}
+.warning {
+  width: 4.4rem;
+  height: 4.4rem;
+  color: #f78656;
+}
+.warning_box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  color: #666;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  padding: 2rem;
 }

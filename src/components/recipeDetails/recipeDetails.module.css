@@ -2,7 +2,7 @@
   text-align: center;
 }
 .recipeDetailContainer {
-  width: 100%;
+  /* width: 100%; */
   position: relative;
 }
 .bookmark {
@@ -172,6 +172,7 @@
 .no_recipe_container {
   margin: 0 auto;
   height: 100vh;
+
 }
 
 .no_recipe_box {

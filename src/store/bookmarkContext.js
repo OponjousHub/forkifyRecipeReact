@@ -8,8 +8,11 @@ const BookmarkContext = createContext({
 export default BookmarkContext;
 
 export const BookmarkContextProvider = ({ children }) => {
+  const bookmarks = JSON.parse(localStorage.getItem("bookmarked"));
+
   const [selectedRecipe, setSelectedRecipe] = useState("");
-  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmark, setBookmarks] = useState(bookmarks || []);
+  localStorage.setItem("bookmarked", JSON.stringify(bookmark));
 
   const handleSelectedRecipe = (recipeData) => {
     setSelectedRecipe(recipeData);

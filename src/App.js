@@ -19,8 +19,11 @@ function App() {
         <div className={classes.app_container}>
           <Header onLoad={handleLoading} />
           <div className={classes.recipe_container}>
-            <RecipeResult onLoading={isLoading} />
-            <RecipeDatail />
+            <RecipeResult
+              onLoading={isLoading}
+              className={classes.result_layout}
+            />
+            <RecipeDatail className={classes.details_layout} />
           </div>
         </div>
       </RecipeContextProvider>

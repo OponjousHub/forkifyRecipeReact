@@ -6,3 +6,9 @@
 .recipe_container {
   display: flex;
 }
+.details_layout {
+  width: 50rem;
+}
+.result_layout {
+  width: 300px;
+}
