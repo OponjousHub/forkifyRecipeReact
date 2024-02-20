@@ -1,34 +1,36 @@
-import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState, useEffect, useRef } from "react";
 import RecipeContext from "../../store/recipeContext";
 import BookmarkContext from "../../store/bookmarkContext";
 import { Smiley, User, BookmarkSimple } from "@phosphor-icons/react";
 import classes from "./recipeDetails.module.css";
 import Spiner from "../utility/spiner";
 import Ingredients from "./ingredients";
+import ErrorModal from "../utility/errorModal";
 import { fetchRecipeUrl } from "../utility/http";
 // import Error from "../utility/error";
 
 const RecipeDatail = () => {
   const [loadedRecipe, setLoadedRecipe] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState("");
+  const [hasError, setHasError] = useState({
+    error: "",
+    errState: false,
+  });
   const [bookmarkIcon, setBookmarkIcon] = useState(false);
   const { selectedRecipe } = useContext(RecipeContext);
-  const { onGetSelectedRecipe, onBookrecipe, bookmarks, onRemoveBookmark } =
+  const { onGetSelectedRecipe, onBookrecipe, bookmark, onRemoveBookmark } =
     useContext(BookmarkContext);
   const id = selectedRecipe.selectedRecipeId;
+  const dialog = useRef();
 
   const handleBookmarkClick = () => {
     onBookrecipe();
     setBookmarkIcon(true);
   };
-  // const refreshBookmark = (bookState) => {
-  //   onBookrecipe();
-  // };
+
   const handleRemoveBookmark = () => {
     onRemoveBookmark();
-    console.log(selectedRecipe.id);
+    console.log(selectedRecipe.selectedRecipeId);
     setBookmarkIcon(false);
   };
 
@@ -36,7 +38,7 @@ const RecipeDatail = () => {
     const loadRecipe = async (id) => {
       try {
         setIsLoading(true);
-        bookmarks.find((book) => book.id === id)
+        bookmark.find((book) => book.id === id)
           ? setBookmarkIcon(true)
           : setBookmarkIcon(false);
 
@@ -58,8 +60,13 @@ const RecipeDatail = () => {
         console.log(rec);
         return rec;
       } catch (err) {
-        // setError(err);
-        // alert(err);
+        setHasError({
+          error: err.message,
+          errState: true,
+        });
+        setIsLoading(false);
+        // console.error(err.message);
+        // dialog.current.showModal();
       }
     };
     loadRecipe(id);
@@ -84,25 +91,6 @@ const RecipeDatail = () => {
     });
   };
 
-  // let boomarkIcon = "";
-  // const isBookmarked = bookmarks.find(
-  //   (booked) => booked.id === selectedRecipe.id
-  // );
-  // if (isBookmarked) {
-  //   boomarkIcon = (
-  //     <BookmarkSimple size={64} weight="fill" className={classes.my_bookmark} />
-  //   );
-  // } else {
-  //   boomarkIcon = (
-  //     <BookmarkSimple
-  //       size={64}
-  //       // weight="fill"
-  //       className={classes.my_bookmark}
-  //       onClick={handleBookmarkClick}
-  //     />
-  //   );
-  // }
-
   let content = "";
 
   if (selectedRecipe.selectedState === false) {
@@ -125,6 +113,10 @@ const RecipeDatail = () => {
   //   return (content = <Error />);
   // }
   else {
+    <ErrorModal
+      ref={dialog}
+      eror={hasError.errState ? hasError.error : null}
+    />;
     content = (
       <div>
         <figure className={classes.fig}>

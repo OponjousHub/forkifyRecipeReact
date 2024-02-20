@@ -1,14 +1,9 @@
-import { useContext, forwardRef } from "react";
+import { forwardRef } from "react";
 import { Warning } from "@phosphor-icons/react";
 
-// import RecipeContext from "../../store/recipeContext";
 import classes from "../recipeDetails/recipeDetails.module.css";
 
 const ErrorModal = forwardRef(function ErrorModal({ eror }, ref) {
-  // const { error } = useContext(RecipeContext);
-
-  // console.log(error);
-  // console.log(eror);
   return (
     <dialog ref={ref} className={classes.main_error}>
       <div className={classes.error_box}>

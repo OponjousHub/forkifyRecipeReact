@@ -1,18 +1,17 @@
+import { useState, useContext, useRef } from "react";
 import SearchRecipe from "./searchRecipe";
+import RecipeContext from "../../store/recipeContext";
+import BookmarkContext from "../../store/bookmarkContext";
 import { Warning } from "@phosphor-icons/react";
 import classes from "./header.module.css";
 import styles from "../results/recipeResult.module.css";
-
-// import styles from "./bookmark.module.css";
 import image from "../../img/logo.png";
-import { useState, useContext } from "react";
-import BookmarkContext from "../../store/bookmarkContext";
-import RecipeContext from "../../store/recipeContext";
 
-const Header = ({ onLoad }) => {
-  const { bookmarks, selectedRecipe } = useContext(BookmarkContext);
+const Header = ({ onLoad, onShowModal }) => {
+  const { bookmark, selectedRecipe } = useContext(BookmarkContext);
   const { onSelectRecipe } = useContext(RecipeContext);
   const [showBookmarks, setShowBookmarks] = useState(false);
+  const dialog = useRef();
 
   const handleShowBookmark = () => {
     setShowBookmarks(true);
@@ -20,14 +19,13 @@ const Header = ({ onLoad }) => {
   const handleHideBookmark = () => {
     setShowBookmarks(false);
   };
-  console.log(selectedRecipe.id);
 
   let bookmarkContent;
-  if (showBookmarks && bookmarks.length > 0) {
+  if (showBookmarks && bookmark.length > 0) {
     bookmarkContent = (
       <div className={classes.inner}>
         <ul className={`${styles.ul_list} ${classes.bookmarks_ul}`}>
-          {bookmarks.map((recipe) => {
+          {bookmark.map((recipe) => {
             let cssClass = "";
             if (recipe.id === selectedRecipe.selectedRecipeId) {
               cssClass = styles.recipe_list_active;
@@ -59,7 +57,7 @@ const Header = ({ onLoad }) => {
         </ul>
       </div>
     );
-  } else if (showBookmarks && bookmarks.length === 0) {
+  } else if (showBookmarks && bookmark.length === 0) {
     bookmarkContent = (
       <div className={classes.inner}>
         <div className={classes.warning_box}>
@@ -73,29 +71,31 @@ const Header = ({ onLoad }) => {
   }
 
   return (
-    <header className={classes.header_container}>
-      <img className={classes.logo} src={image} alt="forkify logo" />
-      <SearchRecipe onLoading={onLoad} />
-      <div className={classes.add}>
-        <p className={classes.add_recipe}>
-          <ion-icon className={classes.icon} name="create-outline"></ion-icon>
-          <span>ADD RECIPE</span>
-        </p>
-        <p
-          className={classes.show_bookmark}
-          onMouseOver={handleShowBookmark}
-          onMouseOut={handleHideBookmark}
-        >
-          <ion-icon
-            className={classes.icon}
-            name="bookmarks-outline"
-          ></ion-icon>
-          <span>BOOKMARK</span>
+    <>
+      <header className={classes.header_container}>
+        <img className={classes.logo} src={image} alt="forkify logo" />
+        <SearchRecipe onLoading={onLoad} />
+        <div className={classes.add}>
+          <p className={classes.add_recipe} onClick={() => onShowModal(true)}>
+            <ion-icon className={classes.icon} name="create-outline"></ion-icon>
+            <span>ADD RECIPE</span>
+          </p>
+          <p
+            className={classes.show_bookmark}
+            onMouseOver={handleShowBookmark}
+            onMouseOut={handleHideBookmark}
+          >
+            <ion-icon
+              className={classes.icon}
+              name="bookmarks-outline"
+            ></ion-icon>
+            <span>BOOKMARK</span>
 
-          {bookmarkContent}
-        </p>
-      </div>
-    </header>
+            {bookmarkContent}
+          </p>
+        </div>
+      </header>
+    </>
   );
 };
 

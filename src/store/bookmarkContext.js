@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 const BookmarkContext = createContext({
   onGetSelectedRecipe: () => {},
   onBookrecipe: () => {},
+  onRemoveBookmark: () => {},
 });
 
 export default BookmarkContext;
@@ -20,7 +21,7 @@ export const BookmarkContextProvider = ({ children }) => {
 
   const handleBookmarks = () => {
     setBookmarks((prevState) => {
-      const existingRecipe = bookmarks.find(
+      const existingRecipe = bookmark.find(
         (booked) => booked.id === selectedRecipe.id
       );
       if (existingRecipe) {
@@ -45,21 +46,25 @@ export const BookmarkContextProvider = ({ children }) => {
   };
 
   const handleRemoveBookmark = () => {
+    console.log(bookmark);
     console.log(selectedRecipe.id);
-    const removedRecipe = bookmarks.filter(
-      (book) => book.id !== selectedRecipe.id
-    );
-    console.log(removedRecipe);
+
     setBookmarks((prevState) => {
-      return [...prevState, { removedRecipe }];
+      // const existingBookmark = bookmark;
+      const remainingBookmark = bookmark.filter(
+        (book) => book.id !== selectedRecipe.id
+      );
+      console.log(remainingBookmark);
+      return [...remainingBookmark];
     });
   };
+  console.log(bookmark);
 
   const bookmarkCTX = {
     onGetSelectedRecipe: handleSelectedRecipe,
     selectedRecipe,
     onBookrecipe: handleBookmarks,
-    bookmarks,
+    bookmark,
     onRemoveBookmark: handleRemoveBookmark,
   };
   return (

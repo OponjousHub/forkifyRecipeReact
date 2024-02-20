@@ -4,7 +4,7 @@ export const fetchRecipeUrl = async (id) => {
   );
   if (!response.ok)
     throw new Error(
-      `Could not fetch this recipe! please try again. Status: ${response.status}`
+      `Could not fetch this recipe! please check your internet connection. Status: ${response.status}`
     );
 
   const recipeData = await response.json();
