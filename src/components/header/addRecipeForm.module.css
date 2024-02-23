@@ -1,12 +1,19 @@
+.addform_container {
+  padding: 0 !important;
+  background-color: aliceblue;
+  border-radius: 1.2rem;
+}
+.isvalid {
+  text-align: center;
+  color: #ca3e51;
+  margin-bottom: 0 !important;
+}
 .form {
-  /* margin: 1rem 0;
-  height: 19rem;
-  overflow: auto; */
   background-color: aliceblue;
   max-width: 100rem;
-  margin: 2rem auto;
-  padding-top: 3rem;
+  margin: 0 auto;
   border-radius: 9px;
+  padding: 0 2rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -14,24 +21,31 @@
   justify-items: center;
   position: relative;
 }
+
 .close {
   position: absolute;
   top: 9px;
   right: 12px;
   cursor: pointer;
-  color: #772d0d;
   transition: all 0.3;
 }
-.close:hover,
-.close:active {
-  padding: 1px;
-  background-color: #772d0d;
+.close button {
+  border: none;
+  background-color: aliceblue;
+}
+.close button:hover,
+.close button:active {
+  width: 4rem;
+  height: 3.2rem;
+  background-color: #e7916d;
   color: #fff;
+  border: none;
 }
 
 .close ion-icon {
-  width: 3.2rem;
-  height: 3.2rem;
+  color: #666;
+  /* width: 3.2rem; */
+  /* height: 3.2rem; */
   font-size: xx-large;
 }
 
@@ -46,7 +60,7 @@
 
   display: flex;
   justify-content: space-between;
-  gap: 6rem;
+  gap: 3rem;
 }
 
 .control label {

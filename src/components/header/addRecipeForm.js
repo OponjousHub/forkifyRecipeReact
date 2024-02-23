@@ -1,4 +1,4 @@
-import Modal from "../utility/modal";
+import Modal from "../utility/addRecipeModal";
 import classes from "./addRecipeForm.module.css";
 
 const AddRecipeForm = () => {

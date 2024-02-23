@@ -45,14 +45,13 @@ const RecipeDatail = () => {
         const recipeData = await fetchRecipeUrl(id);
         const { recipe } = recipeData.data;
         const rec = {
-          id: recipe.id,
           publisher: recipe.publisher,
           ingredients: recipe.ingredients,
           url: recipe.source_url,
           image: recipe.image_url,
           title: recipe.title,
-          servings: recipe.servings,
-          cookingTime: recipe.cooking_time,
+          servings: +recipe.servings,
+          cookingTime: +recipe.cooking_time,
         };
         setLoadedRecipe(rec);
         onGetSelectedRecipe(rec);

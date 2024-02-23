@@ -2,12 +2,13 @@ import { useState, useContext, useRef } from "react";
 import SearchRecipe from "./searchRecipe";
 import RecipeContext from "../../store/recipeContext";
 import BookmarkContext from "../../store/bookmarkContext";
+import AddRecipeModal from "../utility/addRecipeModal";
 import { Warning } from "@phosphor-icons/react";
 import classes from "./header.module.css";
 import styles from "../results/recipeResult.module.css";
 import image from "../../img/logo.png";
 
-const Header = ({ onLoad, onShowModal }) => {
+const Header = ({ onLoad }) => {
   const { bookmark, selectedRecipe } = useContext(BookmarkContext);
   const { onSelectRecipe } = useContext(RecipeContext);
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -18,6 +19,9 @@ const Header = ({ onLoad, onShowModal }) => {
   };
   const handleHideBookmark = () => {
     setShowBookmarks(false);
+  };
+  const handleAddRecipe = () => {
+    dialog.current.showModal();
   };
 
   let bookmarkContent;
@@ -72,11 +76,12 @@ const Header = ({ onLoad, onShowModal }) => {
 
   return (
     <>
+      <AddRecipeModal ref={dialog} />
       <header className={classes.header_container}>
         <img className={classes.logo} src={image} alt="forkify logo" />
         <SearchRecipe onLoading={onLoad} />
         <div className={classes.add}>
-          <p className={classes.add_recipe} onClick={() => onShowModal(true)}>
+          <p className={classes.add_recipe} onClick={handleAddRecipe}>
             <ion-icon className={classes.icon} name="create-outline"></ion-icon>
             <span>ADD RECIPE</span>
           </p>
