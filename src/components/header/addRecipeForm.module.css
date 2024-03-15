@@ -80,6 +80,9 @@
 .control input:focus {
   outline: none;
 }
+.control input {
+  font-size: 1.6rem;
+}
 .form_data {
   display: flex;
   flex-direction: column;
@@ -137,4 +140,11 @@
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;
+}
+.uploadSpiner {
+  width: 30rem;
+  height: 15rem;
+
+  display: flex;
+  align-items: center;
 }

@@ -4,6 +4,7 @@ const BookmarkContext = createContext({
   onGetSelectedRecipe: () => {},
   onBookrecipe: () => {},
   onRemoveBookmark: () => {},
+  onAddUploadToBookmark: () => {},
 });
 
 export default BookmarkContext;
@@ -42,23 +43,41 @@ export const BookmarkContextProvider = ({ children }) => {
         ];
       }
     });
-    console.log(selectedRecipe.id);
+  };
+  const handleBookmarkUpload = (uploadedRecipe) => {
+    setBookmarks((prevState) => {
+      const existingRecipe = bookmark.find(
+        (booked) => booked.title === uploadedRecipe.title
+      );
+      if (existingRecipe) {
+        return [...prevState];
+      } else {
+        return [
+          {
+            id: uploadedRecipe.id,
+            publisher: uploadedRecipe.publisher,
+            ingredients: uploadedRecipe.ingredients,
+            url: uploadedRecipe.url,
+            image: uploadedRecipe.image,
+            title: uploadedRecipe.title,
+            servings: uploadedRecipe.servings,
+            cookingTime: uploadedRecipe.cookingTime,
+            // key: uploadedRecipe.key,
+          },
+          ...prevState,
+        ];
+      }
+    });
   };
 
   const handleRemoveBookmark = () => {
-    console.log(bookmark);
-    console.log(selectedRecipe.id);
-
-    setBookmarks((prevState) => {
-      // const existingBookmark = bookmark;
+    setBookmarks(() => {
       const remainingBookmark = bookmark.filter(
         (book) => book.id !== selectedRecipe.id
       );
-      console.log(remainingBookmark);
       return [...remainingBookmark];
     });
   };
-  console.log(bookmark);
 
   const bookmarkCTX = {
     onGetSelectedRecipe: handleSelectedRecipe,
@@ -66,6 +85,7 @@ export const BookmarkContextProvider = ({ children }) => {
     onBookrecipe: handleBookmarks,
     bookmark,
     onRemoveBookmark: handleRemoveBookmark,
+    onAddUploadToBookmark: handleBookmarkUpload,
   };
   return (
     <BookmarkContext.Provider value={bookmarkCTX}>

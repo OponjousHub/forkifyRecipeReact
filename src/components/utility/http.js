@@ -13,7 +13,11 @@ export const fetchRecipeUrl = async (id) => {
   return recipeData;
 };
 
-export const uploadRecipeUrl = async (recipe) => {
+const timeOut = () => {
+  setTimeout(() => {}, [5 * 1000]);
+};
+
+export const uploadRecipeUrl = async function uploadRecipeUrl(recipe) {
   const response = await fetch(
     `https://forkify-api.herokuapp.com/api/v2/recipes/?key=${KEY}`,
     {
@@ -24,6 +28,7 @@ export const uploadRecipeUrl = async (recipe) => {
       body: JSON.stringify(recipe),
     }
   );
+  // const res = await Promise.race([response, timeOut()]);
   if (!response.ok)
     throw new Error(
       `Could not upload this recipe! please check your internet connection. Status: ${response.status}`

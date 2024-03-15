@@ -6,6 +6,8 @@ const RecipeContext = createContext({
   onSelectRecipe: () => {},
   onLoading: () => {},
   onShowError: () => {},
+  onDisplayUpload: () => {},
+  onAddUploaded: () => {},
 
   // currPage: currPage,
 });
@@ -17,6 +19,10 @@ export const RecipeContextProvider = ({ children }) => {
   const [currPage, setCurrPage] = useState(1);
   const [isLoading, setIsLoading] = useState("");
   const [error, setError] = useState("");
+  const [displayUploaded, setDisplayUploaded] = useState({
+    state: false,
+    value: "",
+  });
   const [selectedRecipe, setSelectedRecipe] = useState({
     selectedState: false,
     selectedRecipeId: null,
@@ -25,6 +31,31 @@ export const RecipeContextProvider = ({ children }) => {
 
   const handleRecipeResults = (recipes) => {
     setRecipeResults(recipes);
+  };
+  const handleAddUploadedToResult = (uploadedRecipe) => {
+    setRecipeResults((prevState) => {
+      const existingRecipe = recipeResults.find(
+        (booked) => booked.title === uploadedRecipe.title
+      );
+      if (existingRecipe) {
+        return [...prevState];
+      } else {
+        return [
+          {
+            id: uploadedRecipe.id,
+            publisher: uploadedRecipe.publisher,
+            // ingredients: uploadedRecipe.ingredients,
+            // url: uploadedRecipe.url,
+            image: uploadedRecipe.image,
+            title: uploadedRecipe.title,
+            // servings: uploadedRecipe.servings,
+            // cookingTime: uploadedRecipe.cookingTime,
+            key: uploadedRecipe.key,
+          },
+          ...prevState,
+        ];
+      }
+    });
   };
 
   const handlePage = (page) => {
@@ -37,6 +68,11 @@ export const RecipeContextProvider = ({ children }) => {
       selectedRecipeId: recipe.id,
       recipe,
     });
+
+    setDisplayUploaded({
+      state: false,
+      value: "",
+    });
   };
 
   const loading = (loadingState) => {
@@ -46,6 +82,13 @@ export const RecipeContextProvider = ({ children }) => {
   const handleError = (err) => {
     setError(err);
   };
+  const handleDisplayUpload = (recipeData) => {
+    setDisplayUploaded({
+      state: true,
+      value: recipeData,
+    });
+  };
+  console.log(displayUploaded.value);
 
   const recipeCTXval = {
     recipe: handleRecipeResults,
@@ -58,6 +101,9 @@ export const RecipeContextProvider = ({ children }) => {
     isLoading,
     onShowError: handleError,
     error,
+    onDisplayUpload: handleDisplayUpload,
+    displayUploaded,
+    onAddUploaded: handleAddUploadedToResult,
   };
 
   return (

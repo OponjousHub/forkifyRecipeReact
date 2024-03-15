@@ -13,7 +13,7 @@ const Ingredients = (props) => {
           {recipe.ingredients.map((ing) => {
             return (
               <div className={classes.ing_side_box}>
-                <li className={classes.ingredient} key={ing.id}>
+                <li className={classes.ingredient} key={ing.description}>
                   <ion-icon name="checkmark-outline"></ion-icon>
                   <div className={classes.ing_inner}>
                     <span>{ing.quantity}</span>

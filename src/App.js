@@ -1,44 +1,45 @@
 import { useState } from "react";
 import { RecipeContextProvider } from "./store/recipeContext";
 import { BookmarkContextProvider } from "./store/bookmarkContext";
+import { ProgressContextProvider } from "./store/progressContext";
 import Header from "./components/header/header";
 import RecipeResult from "./components/results/recipeResult";
 import RecipeDatail from "./components/recipeDetails/recipeDetails";
-import AddRecipeForm from "./components/header/addRecipeForm";
-// import Modal from "./components/utility/modal";
+import SpinerModal from "./components/utility/spinnerModal";
+// import AddRecipeForm from "./components/header/addRecipeForm";
+
+import UploadErrorModal from "./components/utility/uploadErrorModal";
 import classes from "./app.module.css";
 import "./App.css";
+import AddRecipeModal from "./components/utility/addRecipeModal";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
 
   const handleLoading = (load) => {
     setIsLoading(load);
   };
 
-  // const handleAddForm = (showState) => {
-  //   setShowModal(showState);
-  //   console.log("clicked");
-  //   // dialog.current.showModal();
-  // };
-  // console.log(showModal);
   return (
-    <BookmarkContextProvider>
-      <RecipeContextProvider>
-        <div className={classes.app_container}>
-          <Header onLoad={handleLoading} />
-          <div className={classes.recipe_container}>
-            <RecipeResult
-              onLoading={isLoading}
-              className={classes.result_layout}
-            />
-            <RecipeDatail className={classes.details_layout} />
-            {/* <AddRecipeForm /> */}
+    <ProgressContextProvider>
+      <BookmarkContextProvider>
+        <RecipeContextProvider>
+          <div className={classes.app_container}>
+            <Header onLoad={handleLoading} />
+            <div className={classes.recipe_container}>
+              <RecipeResult
+                onLoading={isLoading}
+                className={classes.result_layout}
+              />
+              <RecipeDatail className={classes.details_layout} />
+            </div>
+            {/* <SpinerModal /> */}
+            {/* <UploadErrorModal /> */}
+            <AddRecipeModal />
           </div>
-        </div>
-      </RecipeContextProvider>
-    </BookmarkContextProvider>
+        </RecipeContextProvider>
+      </BookmarkContextProvider>
+    </ProgressContextProvider>
   );
 }
 
